@@ -1,4 +1,4 @@
-package com.chengfan.practice.gitlabshower;
+package org.chengfan.gitlab.shower;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
