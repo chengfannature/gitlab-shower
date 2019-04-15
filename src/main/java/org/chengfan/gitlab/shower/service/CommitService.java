@@ -1,9 +1,12 @@
 package org.chengfan.gitlab.shower.service;
 
+import org.gitlab.api.models.GitlabCommitWithStats;
+
+import java.util.List;
+
 /**
  * Provides method to get commits for a project.
  */
 public interface CommitService {
-    void getCommits(int projectId);
-    void getCommitsByMember();
+    void saveCommits(List<GitlabCommitWithStats> commitList, int projectId);
 }

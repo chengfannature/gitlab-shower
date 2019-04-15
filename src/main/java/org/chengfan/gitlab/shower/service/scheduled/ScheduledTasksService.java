@@ -1,7 +1,10 @@
 package org.chengfan.gitlab.shower.service.scheduled;
 
+import org.chengfan.gitlab.shower.service.CommitService;
 import org.gitlab.api.GitlabAPI;
+import org.gitlab.api.models.CommitComment;
 import org.gitlab.api.models.GitlabCommit;
+import org.gitlab.api.models.GitlabCommitWithStats;
 import org.gitlab.api.models.GitlabProject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,6 +21,9 @@ public class ScheduledTasksService {
 	@Autowired
 	GitlabAPI gitlabAPI;
 
+	@Autowired
+	CommitService commitService;
+
 	@Scheduled(cron = "0 0 7 * * *")
 	public void reloadCommits() {
 		List<GitlabProject> projects = gitlabAPI.getAllProjects();
@@ -25,13 +31,13 @@ public class ScheduledTasksService {
 	}
 
 	private void reloadCommitByProject(int projectId) {
-		List<GitlabCommit> commits = null;
+		List<GitlabCommitWithStats> commits;
 		try {
-			commits = gitlabAPI.getAllCommits(projectId, DEFAULT_BRANCH);
+			commits = gitlabAPI.getCommitWithStats(projectId, null);
+			commitService.saveCommits(commits, projectId);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		commits.parallelStream().forEach(c -> reloadCommitComments(projectId, c.getId()));
 	}
 
 

@@ -1,4 +1,15 @@
 gitlab:
-    url: http://192.168.3.34
-    token: FMKwcwLZoLyBWGEXJxiG
+    url: http://172.16.18.101
+    token: 5xVvXGoDpeNSEjMUe7yZ
     groups: nisp
+
+spring:
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/gitlab?useSSL=false
+        username: root
+        password: root
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: update
