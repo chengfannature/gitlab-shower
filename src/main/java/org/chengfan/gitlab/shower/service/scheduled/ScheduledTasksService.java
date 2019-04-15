@@ -2,8 +2,6 @@ package org.chengfan.gitlab.shower.service.scheduled;
 
 import org.chengfan.gitlab.shower.service.CommitService;
 import org.gitlab.api.GitlabAPI;
-import org.gitlab.api.models.CommitComment;
-import org.gitlab.api.models.GitlabCommit;
 import org.gitlab.api.models.GitlabCommitWithStats;
 import org.gitlab.api.models.GitlabProject;
 import org.springframework.beans.factory.annotation.Autowired;
