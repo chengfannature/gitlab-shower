@@ -1,6 +1,6 @@
 package org.chengfan.gitlab.shower.service.impl;
 
-import org.chengfan.gitlab.shower.dto.Commit;
+import org.chengfan.gitlab.shower.entity.Commit;
 import org.chengfan.gitlab.shower.repository.CommitRepository;
 import org.chengfan.gitlab.shower.service.CommitService;
 import org.gitlab.api.models.GitlabCommitStats;
@@ -21,6 +21,16 @@ public class CommitServiceImpl implements CommitService {
             Commit commit = buildCommit(commitWithStats, projectId);
             commitRepository.save(commit);
         });
+    }
+
+    @Override
+    public GitlabCommitStats getAllCommitStats(int userId) {
+        Integer additionsSum = commitRepository.getAdditionsSum(userId);
+        Integer deletionsSum = commitRepository.getDeletionsSum(userId);
+        GitlabCommitStats stats = new GitlabCommitStats();
+        stats.setAdditions(additionsSum);
+        stats.setDeletions(deletionsSum);
+        return stats;
     }
 
     private Commit buildCommit(GitlabCommitWithStats cws, int projectId) {

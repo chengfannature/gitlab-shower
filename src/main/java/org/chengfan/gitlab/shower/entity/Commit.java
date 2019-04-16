@@ -1,4 +1,4 @@
-package org.chengfan.gitlab.shower.dto;
+package org.chengfan.gitlab.shower.entity;
 
 
 import lombok.Getter;

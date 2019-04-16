@@ -15,7 +15,7 @@ public class CommitController {
 
 	@RequestMapping(value = "/commits/{userId}")
 	public GitlabCommitStats commitStats(@PathVariable int userId) {
-//		return commitService.getAllCommitStats(userId);
-		return null;
+		return commitService.getAllCommitStats(userId);
+//		return null;
 	}
 }
