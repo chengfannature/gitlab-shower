@@ -1,15 +1,13 @@
 package org.chengfan.gitlab.shower.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-@Setter
-@Getter
+@Data
 @ConfigurationProperties(prefix = "gitlab")
 public class Gitlab {
 

@@ -1,6 +1,7 @@
 package org.chengfan.gitlab.shower.entity;
 
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,15 +16,11 @@ import java.util.Date;
 
 @Entity
 @Table(name = "commit")
-@Component
-@Setter
-@Getter
+@Data
 public class Commit {
 
     @Id
     private String id;
-    @NotBlank
-    private String title;
     @NotBlank
     private String shortId;
     @NotBlank

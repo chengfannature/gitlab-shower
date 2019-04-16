@@ -1,5 +1,6 @@
 package org.chengfan.gitlab.shower.service.impl;
 
+import ma.glasnost.orika.MapperFacade;
 import org.chengfan.gitlab.shower.entity.Commit;
 import org.chengfan.gitlab.shower.repository.CommitRepository;
 import org.chengfan.gitlab.shower.service.CommitService;
@@ -15,6 +16,9 @@ public class CommitServiceImpl implements CommitService {
 
     @Autowired
     CommitRepository commitRepository;
+
+    @Autowired
+    MapperFacade mapperFacade;
 
     public void saveCommits(List<GitlabCommitWithStats> commits, int projectId) {
         commits.forEach(commitWithStats -> {
@@ -34,14 +38,7 @@ public class CommitServiceImpl implements CommitService {
     }
 
     private Commit buildCommit(GitlabCommitWithStats cws, int projectId) {
-        Commit commit = new Commit();
-        commit.setId(cws.getId());
-        commit.setTitle(cws.getTitle());
-        commit.setShortId(cws.getShortId());
-        commit.setAuthorName(cws.getAuthorName());
-        commit.setAuthorEmail(cws.getAuthorEmail());
-        commit.setCreatedAt(cws.getCreatedAt());
-        commit.setProjectId(projectId);
+        Commit commit = mapperFacade.map(cws, Commit.class);
         GitlabCommitStats stats = cws.getGitlabCommitStats();
         commit.setAdditions(stats.getAdditions());
         commit.setDeletions(stats.getDeletions());

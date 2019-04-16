@@ -1,5 +1,7 @@
 package org.chengfan.gitlab.shower;
 
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.chengfan.gitlab.shower.entity.Gitlab;
 import org.gitlab.api.GitlabAPI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,12 @@ public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
+
+	@Bean
+	public MapperFacade orikaBeanMapper() {
+		return new DefaultMapperFactory.Builder().build().getMapperFacade();
+	}
+
 
 	@Bean
 	public GitlabAPI gitlabAPI() {
