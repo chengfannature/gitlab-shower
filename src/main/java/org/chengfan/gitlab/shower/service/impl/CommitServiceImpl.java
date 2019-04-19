@@ -1,5 +1,6 @@
 package org.chengfan.gitlab.shower.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.chengfan.gitlab.shower.entity.Commit;
 import org.chengfan.gitlab.shower.repository.CommitRepository;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Slf4j
 public class CommitServiceImpl implements CommitService {
+    public static final int MAX_CODE_LINE_PER_COMMIT = 5000;
 
     @Autowired
     CommitRepository commitRepository;
@@ -21,24 +24,30 @@ public class CommitServiceImpl implements CommitService {
     MapperFacade mapperFacade;
 
     public void saveCommits(List<GitlabCommitWithStats> commits, int projectId) {
-        commits.forEach(commitWithStats -> {
-            Commit commit = buildCommit(commitWithStats, projectId);
-            commitRepository.save(commit);
-        });
+        long start = System.currentTimeMillis();
+        //过滤超大addition/deletion的提交(通常都是代码同步)
+        commits.stream().filter(c -> c.getGitlabCommitStats().getTotal() < MAX_CODE_LINE_PER_COMMIT)
+                .forEach(commitWithStats -> {
+                    Commit commit = buildCommit(commitWithStats, projectId);
+                    commitRepository.save(commit);
+                });
+        long end = System.currentTimeMillis();
+        log.info("take {} to insert into database, total records {}", end - start, commits.size());
     }
 
     @Override
-    public GitlabCommitStats getAllCommitStats(int userId) {
-        Integer additionsSum = commitRepository.getAdditionsSum(userId);
-        Integer deletionsSum = commitRepository.getDeletionsSum(userId);
-        GitlabCommitStats stats = new GitlabCommitStats();
-        stats.setAdditions(additionsSum);
-        stats.setDeletions(deletionsSum);
-        return stats;
+    public List<Commit> getAllCommits(String username) {
+        return commitRepository.findByAuthorName(username);
     }
 
     private Commit buildCommit(GitlabCommitWithStats cws, int projectId) {
-        Commit commit = mapperFacade.map(cws, Commit.class);
+        Commit commit = new Commit();
+        commit.setId(cws.getId());
+        commit.setShortId(cws.getShortId());
+        commit.setAuthorName(cws.getAuthorName());
+        commit.setAuthorEmail(cws.getAuthorEmail());
+        commit.setCreatedAt(cws.getCreatedAt());
+        commit.setProjectId(projectId);
         GitlabCommitStats stats = cws.getGitlabCommitStats();
         commit.setAdditions(stats.getAdditions());
         commit.setDeletions(stats.getDeletions());

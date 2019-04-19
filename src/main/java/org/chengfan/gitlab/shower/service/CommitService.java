@@ -1,6 +1,6 @@
 package org.chengfan.gitlab.shower.service;
 
-import org.gitlab.api.models.GitlabCommitStats;
+import org.chengfan.gitlab.shower.entity.Commit;
 import org.gitlab.api.models.GitlabCommitWithStats;
 
 import java.util.List;
@@ -11,5 +11,5 @@ import java.util.List;
 public interface CommitService {
     void saveCommits(List<GitlabCommitWithStats> commitList, int projectId);
 
-    GitlabCommitStats getAllCommitStats(int userId);
+    List<Commit> getAllCommits(String username);
 }

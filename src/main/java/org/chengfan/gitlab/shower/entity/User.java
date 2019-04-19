@@ -5,6 +5,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Table(name = "user")
@@ -22,9 +24,4 @@ public class User implements Serializable {
 
   @Column(name = "email")
   private String email;
-
-  @Column(name = "is_admin")
-  private Boolean admin;
-
-  
 }

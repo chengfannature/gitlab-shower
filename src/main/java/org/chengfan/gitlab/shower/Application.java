@@ -2,7 +2,6 @@ package org.chengfan.gitlab.shower;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
-import org.chengfan.gitlab.shower.entity.Gitlab;
 import org.gitlab.api.GitlabAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
