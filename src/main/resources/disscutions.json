@@ -1,0 +1,351 @@
+[
+  {
+    "id": "2364ae63b9ec01b17cb7c7fb6dc9f6b65cab7d86",
+    "individual_note": true,
+    "notes": [
+      {
+        "id": 9588,
+        "type": null,
+        "body": "@chengfan",
+        "attachment": null,
+        "author": {
+          "id": 32,
+          "name": "黄伟俊",
+          "username": "huangwj",
+          "state": "active",
+          "avatar_url": "https://www.gravatar.com/avatar/151b19a7d14e806924303a3efb39552c?s=80&d=identicon",
+          "web_url": "http://172.16.18.101/huangwj"
+        },
+        "created_at": "2019-04-18T17:18:40.579+08:00",
+        "updated_at": "2019-04-18T17:18:40.579+08:00",
+        "system": false,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "resolvable": false,
+        "noteable_iid": 300
+      }
+    ]
+  },
+  {
+    "id": "28f19880209b871a1bad9c4f1f3ff4f8a3ad4396",
+    "individual_note": true,
+    "notes": [
+      {
+        "id": 9589,
+        "type": null,
+        "body": "assigned to @chengfan",
+        "attachment": null,
+        "author": {
+          "id": 17,
+          "name": "彭小刚",
+          "username": "pengxg",
+          "state": "active",
+          "avatar_url": "http://172.16.18.101/uploads/-/system/user/avatar/17/avatar.png",
+          "web_url": "http://172.16.18.101/pengxg"
+        },
+        "created_at": "2019-04-18T17:34:19.773+08:00",
+        "updated_at": "2019-04-18T17:34:19.773+08:00",
+        "system": true,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "resolvable": false,
+        "noteable_iid": 300
+      }
+    ]
+  },
+  {
+    "id": "a8ba38a156a64fbd925535b2e87a8b80b0e1badd",
+    "individual_note": false,
+    "notes": [
+      {
+        "id": 9590,
+        "type": "DiffNote",
+        "body": "这两行是一样的？",
+        "attachment": null,
+        "author": {
+          "id": 17,
+          "name": "彭小刚",
+          "username": "pengxg",
+          "state": "active",
+          "avatar_url": "http://172.16.18.101/uploads/-/system/user/avatar/17/avatar.png",
+          "web_url": "http://172.16.18.101/pengxg"
+        },
+        "created_at": "2019-04-18T17:35:22.099+08:00",
+        "updated_at": "2019-04-19T19:45:40.933+08:00",
+        "system": false,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "position": {
+          "base_sha": "77bdac3ecfd6699f119cba83aaa45b8b8a863e47",
+          "start_sha": "77bdac3ecfd6699f119cba83aaa45b8b8a863e47",
+          "head_sha": "122bc0a590025c30cf5a2fe49b0b645502cf22e4",
+          "old_path": "tools/gpscripts/jmr/sql/Config_installSQL.sql",
+          "new_path": "tools/gpscripts/jmr/sql/Config_installSQL.sql",
+          "position_type": "text",
+          "old_line": null,
+          "new_line": 46
+        },
+        "resolvable": true,
+        "resolved": true,
+        "resolved_by": {
+          "id": 2,
+          "name": "chengfan",
+          "username": "chengfan",
+          "state": "active",
+          "avatar_url": "http://172.16.18.101/uploads/-/system/user/avatar/2/avatar.png",
+          "web_url": "http://172.16.18.101/chengfan"
+        },
+        "noteable_iid": 300
+      },
+      {
+        "id": 9595,
+        "type": "DiffNote",
+        "body": "不一样，已经修改了，谢谢提醒",
+        "attachment": null,
+        "author": {
+          "id": 32,
+          "name": "黄伟俊",
+          "username": "huangwj",
+          "state": "active",
+          "avatar_url": "https://www.gravatar.com/avatar/151b19a7d14e806924303a3efb39552c?s=80&d=identicon",
+          "web_url": "http://172.16.18.101/huangwj"
+        },
+        "created_at": "2019-04-18T17:54:26.085+08:00",
+        "updated_at": "2019-04-18T17:54:26.085+08:00",
+        "system": false,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "position": {
+          "base_sha": "77bdac3ecfd6699f119cba83aaa45b8b8a863e47",
+          "start_sha": "77bdac3ecfd6699f119cba83aaa45b8b8a863e47",
+          "head_sha": "122bc0a590025c30cf5a2fe49b0b645502cf22e4",
+          "old_path": "tools/gpscripts/jmr/sql/Config_installSQL.sql",
+          "new_path": "tools/gpscripts/jmr/sql/Config_installSQL.sql",
+          "position_type": "text",
+          "old_line": null,
+          "new_line": 46
+        },
+        "resolvable": true,
+        "resolved": false,
+        "resolved_by": null,
+        "noteable_iid": 300
+      }
+    ]
+  },
+  {
+    "id": "0982f51afe36cdd66748df6abd5761ca02afb237",
+    "individual_note": true,
+    "notes": [
+      {
+        "id": 9592,
+        "type": null,
+        "body": "changed title from **【{-FR-224】 自有业务栏新增页面 在GP库中创建表 t_form_data_perspective-}** to **【{+NISP5-153】 缺少表导致数据透视无法查询+}**",
+        "attachment": null,
+        "author": {
+          "id": 32,
+          "name": "黄伟俊",
+          "username": "huangwj",
+          "state": "active",
+          "avatar_url": "https://www.gravatar.com/avatar/151b19a7d14e806924303a3efb39552c?s=80&d=identicon",
+          "web_url": "http://172.16.18.101/huangwj"
+        },
+        "created_at": "2019-04-18T17:52:00.095+08:00",
+        "updated_at": "2019-04-18T17:52:00.095+08:00",
+        "system": true,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "resolvable": false,
+        "noteable_iid": 300
+      }
+    ]
+  },
+  {
+    "id": "6e17653161ecaf3e2e1893ec70c8ea25a64887d8",
+    "individual_note": true,
+    "notes": [
+      {
+        "id": 9593,
+        "type": null,
+        "body": "changed the description",
+        "attachment": null,
+        "author": {
+          "id": 32,
+          "name": "黄伟俊",
+          "username": "huangwj",
+          "state": "active",
+          "avatar_url": "https://www.gravatar.com/avatar/151b19a7d14e806924303a3efb39552c?s=80&d=identicon",
+          "web_url": "http://172.16.18.101/huangwj"
+        },
+        "created_at": "2019-04-18T17:52:00.119+08:00",
+        "updated_at": "2019-04-18T17:52:00.119+08:00",
+        "system": true,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "resolvable": false,
+        "noteable_iid": 300
+      }
+    ]
+  },
+  {
+    "id": "3a6b888a337c8a690171b13a40cb61ec7046e429",
+    "individual_note": true,
+    "notes": [
+      {
+        "id": 9594,
+        "type": null,
+        "body": "added 1 commit\n\n<ul><li>122bc0a5 - 【NISP5-153】 缺少表导致数据透视无法查询</li></ul>\n\n[Compare with previous version](http://172.16.18.101/nisp/nisp-etl/merge_requests/300/diffs?diff_id=4363&start_sha=931cfc3cf3b105fbb78de6f2838ba4e6b5a204f5)",
+        "attachment": null,
+        "author": {
+          "id": 32,
+          "name": "黄伟俊",
+          "username": "huangwj",
+          "state": "active",
+          "avatar_url": "https://www.gravatar.com/avatar/151b19a7d14e806924303a3efb39552c?s=80&d=identicon",
+          "web_url": "http://172.16.18.101/huangwj"
+        },
+        "created_at": "2019-04-18T17:53:54.735+08:00",
+        "updated_at": "2019-04-18T17:53:54.735+08:00",
+        "system": true,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "resolvable": false,
+        "noteable_iid": 300
+      }
+    ]
+  },
+  {
+    "id": "ea29199c818d7bfae430a27704d51a69697f817f",
+    "individual_note": true,
+    "notes": [
+      {
+        "id": 9607,
+        "type": null,
+        "body": "贴自验证报告",
+        "attachment": null,
+        "author": {
+          "id": 2,
+          "name": "chengfan",
+          "username": "chengfan",
+          "state": "active",
+          "avatar_url": "http://172.16.18.101/uploads/-/system/user/avatar/2/avatar.png",
+          "web_url": "http://172.16.18.101/chengfan"
+        },
+        "created_at": "2019-04-19T09:12:30.834+08:00",
+        "updated_at": "2019-04-19T09:12:30.834+08:00",
+        "system": false,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "resolvable": false,
+        "noteable_iid": 300
+      }
+    ]
+  },
+  {
+    "id": "a7abff3ca334beae446ab456601c66abc5673947",
+    "individual_note": true,
+    "notes": [
+      {
+        "id": 9609,
+        "type": null,
+        "body": "![Xshot-0324](/uploads/aad0c242edbc9a7ca3f08b1106d586c6/Xshot-0324.png)\n![Xshot-0325](/uploads/519ed04e1f15cea12b908c3190b86052/Xshot-0325.png)\n![Xshot-0326](/uploads/5780e452d0d43165e5786d7429a6cf27/Xshot-0326.png)\n![Xshot-0327](/uploads/fc2fcdef2d54d3aff7588946dc2dfa17/Xshot-0327.png)\n凡哥，子验证报告如上",
+        "attachment": null,
+        "author": {
+          "id": 32,
+          "name": "黄伟俊",
+          "username": "huangwj",
+          "state": "active",
+          "avatar_url": "https://www.gravatar.com/avatar/151b19a7d14e806924303a3efb39552c?s=80&d=identicon",
+          "web_url": "http://172.16.18.101/huangwj"
+        },
+        "created_at": "2019-04-19T10:04:34.682+08:00",
+        "updated_at": "2019-04-19T10:04:34.682+08:00",
+        "system": false,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "resolvable": false,
+        "noteable_iid": 300
+      }
+    ]
+  },
+  {
+    "id": "385cddf5b37a12b0cf6ec1ae6f99c016a0d69989",
+    "individual_note": true,
+    "notes": [
+      {
+        "id": 9623,
+        "type": null,
+        "body": "ok",
+        "attachment": null,
+        "author": {
+          "id": 17,
+          "name": "彭小刚",
+          "username": "pengxg",
+          "state": "active",
+          "avatar_url": "http://172.16.18.101/uploads/-/system/user/avatar/17/avatar.png",
+          "web_url": "http://172.16.18.101/pengxg"
+        },
+        "created_at": "2019-04-19T11:43:18.602+08:00",
+        "updated_at": "2019-04-19T11:43:18.602+08:00",
+        "system": false,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "resolvable": false,
+        "noteable_iid": 300
+      }
+    ]
+  },
+  {
+    "id": "1004d75a93d9f9c91ae1cabd3c79a53eb2ea6bea",
+    "individual_note": true,
+    "notes": [
+      {
+        "id": 9629,
+        "type": null,
+        "body": "merged",
+        "attachment": null,
+        "author": {
+          "id": 2,
+          "name": "chengfan",
+          "username": "chengfan",
+          "state": "active",
+          "avatar_url": "http://172.16.18.101/uploads/-/system/user/avatar/2/avatar.png",
+          "web_url": "http://172.16.18.101/chengfan"
+        },
+        "created_at": "2019-04-19T16:38:31.756+08:00",
+        "updated_at": "2019-04-19T16:38:31.756+08:00",
+        "system": true,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "resolvable": false,
+        "noteable_iid": 300
+      }
+    ]
+  },
+  {
+    "id": "4c3b72d24d8693802e1a727cbe2f1d958e46b781",
+    "individual_note": true,
+    "notes": [
+      {
+        "id": 9630,
+        "type": null,
+        "body": "mentioned in commit 334f6df65d391ecae3e236bde53609ed66e318c8",
+        "attachment": null,
+        "author": {
+          "id": 2,
+          "name": "chengfan",
+          "username": "chengfan",
+          "state": "active",
+          "avatar_url": "http://172.16.18.101/uploads/-/system/user/avatar/2/avatar.png",
+          "web_url": "http://172.16.18.101/chengfan"
+        },
+        "created_at": "2019-04-19T16:38:31.851+08:00",
+        "updated_at": "2019-04-19T16:38:31.851+08:00",
+        "system": true,
+        "noteable_id": 2549,
+        "noteable_type": "MergeRequest",
+        "resolvable": false,
+        "noteable_iid": 300
+      }
+    ]
+  }
+]

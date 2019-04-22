@@ -16,7 +16,7 @@ public class ScheduledTasksServiceTest {
 
 	@Test
 	public void reloadCommits() {
-		scheduledTasksService.reloadCommits();
+		scheduledTasksService.reloadProjectData();
 	}
 
 	@Test

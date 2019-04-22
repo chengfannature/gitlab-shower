@@ -36,7 +36,7 @@ public class ContributorController {
 
     @RequestMapping("/{username}")
     public String showContributorDetail(Model model, @PathVariable String username) {
-        List<Commit> commits = commitService.getAllCommits(username);
+        List<Commit> commits = commitService.findCommit(username);
         model.addAttribute("username", username);
         model.addAttribute("commits", commits);
         return "contributor";

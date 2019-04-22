@@ -1,0 +1,77 @@
+{
+  "notes": [
+    {
+      "id": 9590,
+      "type": "DiffNote",
+      "body": "这两行是一样的？",
+      "attachment": null,
+      "author": {
+        "id": 17,
+        "name": "彭小刚",
+        "username": "pengxg",
+        "state": "active",
+        "avatar_url": "http://172.16.18.101/uploads/-/system/user/avatar/17/avatar.png",
+        "web_url": "http://172.16.18.101/pengxg"
+      },
+      "created_at": "2019-04-18T17:35:22.099+08:00",
+      "updated_at": "2019-04-19T19:45:40.933+08:00",
+      "system": false,
+      "noteable_id": 2549,
+      "noteable_type": "MergeRequest",
+      "position": {
+        "base_sha": "77bdac3ecfd6699f119cba83aaa45b8b8a863e47",
+        "start_sha": "77bdac3ecfd6699f119cba83aaa45b8b8a863e47",
+        "head_sha": "122bc0a590025c30cf5a2fe49b0b645502cf22e4",
+        "old_path": "tools/gpscripts/jmr/sql/Config_installSQL.sql",
+        "new_path": "tools/gpscripts/jmr/sql/Config_installSQL.sql",
+        "position_type": "text",
+        "old_line": null,
+        "new_line": 46
+      },
+      "resolvable": true,
+      "resolved": true,
+      "resolved_by": {
+        "id": 2,
+        "name": "chengfan",
+        "username": "chengfan",
+        "state": "active",
+        "avatar_url": "http://172.16.18.101/uploads/-/system/user/avatar/2/avatar.png",
+        "web_url": "http://172.16.18.101/chengfan"
+      },
+      "noteable_iid": 300
+    },
+    {
+      "id": 9595,
+      "type": "DiffNote",
+      "body": "不一样，已经修改了，谢谢提醒",
+      "attachment": null,
+      "author": {
+        "id": 32,
+        "name": "黄伟俊",
+        "username": "huangwj",
+        "state": "active",
+        "avatar_url": "https://www.gravatar.com/avatar/151b19a7d14e806924303a3efb39552c?s=80&d=identicon",
+        "web_url": "http://172.16.18.101/huangwj"
+      },
+      "created_at": "2019-04-18T17:54:26.085+08:00",
+      "updated_at": "2019-04-18T17:54:26.085+08:00",
+      "system": false,
+      "noteable_id": 2549,
+      "noteable_type": "MergeRequest",
+      "position": {
+        "base_sha": "77bdac3ecfd6699f119cba83aaa45b8b8a863e47",
+        "start_sha": "77bdac3ecfd6699f119cba83aaa45b8b8a863e47",
+        "head_sha": "122bc0a590025c30cf5a2fe49b0b645502cf22e4",
+        "old_path": "tools/gpscripts/jmr/sql/Config_installSQL.sql",
+        "new_path": "tools/gpscripts/jmr/sql/Config_installSQL.sql",
+        "position_type": "text",
+        "old_line": null,
+        "new_line": 46
+      },
+      "resolvable": true,
+      "resolved": false,
+      "resolved_by": null,
+      "noteable_iid": 300
+    }
+  ]
+}
