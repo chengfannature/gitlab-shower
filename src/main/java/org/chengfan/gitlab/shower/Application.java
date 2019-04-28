@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class Application {
 
 	@Autowired
-	Gitlab gitlab;
+    GitlabConfig gitlabConfig;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -28,7 +28,7 @@ public class Application {
 
 	@Bean
 	public GitlabAPI gitlabAPI() {
-		return GitlabAPI.connect(gitlab.getUrl(), gitlab.getToken());
+		return GitlabAPI.connect(gitlabConfig.getUrl(), gitlabConfig.getToken());
 	}
 
 
