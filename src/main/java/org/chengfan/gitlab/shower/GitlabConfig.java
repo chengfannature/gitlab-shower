@@ -15,4 +15,5 @@ public class GitlabConfig {
 	private String token;
 	private String group;
 	private List<String> excludeUsers;
+	private List<String> projects;
 }

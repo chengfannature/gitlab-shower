@@ -48,8 +48,9 @@ public class ScheduledTasksService {
         if (group == null) {
             return;
         }
+        List<String> configProjects = gitlabConfig.getProjects();
         List<GitlabProject> projects = group.getProjects();
-        projects.forEach(p -> {
+        projects.stream().filter(p->configProjects.contains(p.getName())).forEach(p -> {
 //            commitService.saveCommits(p.getId());
             noteService.saveNotes(p.getId());
         });
