@@ -37,6 +37,7 @@ public class NoteServiceImpl implements NoteService {
                     List<GitlabNote> notes = d.getNotes();
                     //只统计别人提出的检视意见,过滤到MR发起者的评论
                     notes.stream()
+                            .filter(n -> !n.getBody().toUpperCase().contains("OK"))
                             .filter(n -> !isSameUser(mr, n))
                             .filter(n -> isNewerNote(n, lastUpdateNote))
                             .map(this::buildNote)
@@ -50,7 +51,7 @@ public class NoteServiceImpl implements NoteService {
 
 
         log.debug("take {} to insert into database for project {}, " +
-                          "total MR records {}", end - start, projectId, mergeRequests.size());
+                "total MR records {}", end - start, projectId, mergeRequests.size());
 
     }
 

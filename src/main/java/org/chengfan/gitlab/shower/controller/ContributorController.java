@@ -1,7 +1,8 @@
 package org.chengfan.gitlab.shower.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.chengfan.gitlab.shower.dto.ContributorDto;
+import org.chengfan.gitlab.shower.dto.CommitDto;
+import org.chengfan.gitlab.shower.dto.ContributionDto;
 import org.chengfan.gitlab.shower.entity.Commit;
 import org.chengfan.gitlab.shower.service.CommitService;
 import org.chengfan.gitlab.shower.service.ContributorService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -26,12 +28,10 @@ public class ContributorController {
     CommitService commitService;
 
     @RequestMapping
-    public List<ContributorDto> showContributors(Model model, @RequestParam(value = "orderByProperty") String orderByProperty) {
-        List<ContributorDto> contributors =
-                contributorService.getDtoContributors(orderByProperty);
-        model.addAttribute("contributors", contributors);
-
-        return contributors;
+    public List<ContributionDto> showContributors(@RequestParam(value = "orderBy") String orderBy,
+                                                  @RequestParam(value = "startTime") Date startTime,
+                                                  @RequestParam(value = "endTime") Date endTime) {
+        return contributorService.getDtoContributors(orderBy, startTime, endTime);
     }
 
     @RequestMapping("/{username}")

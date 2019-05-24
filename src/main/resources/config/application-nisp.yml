@@ -2,6 +2,10 @@ gitlab:
   url: http://172.16.18.101
   token: 5xVvXGoDpeNSEjMUe7yZ
   group: nisp
+  projects:
+  - nisp-web
+  - nisp-etl
+  - nisp-ctl
   excludeUsers:
     - tongxin
     - sonar
@@ -30,8 +34,5 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-
-
-
 
 debug: false

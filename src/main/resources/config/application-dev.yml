@@ -1,0 +1,7 @@
+# control the java code db initialization (hibernate and seeder)
+spring:
+  datasource:
+    initialization-mode: embedded
+  jpa:
+    hibernate:
+      ddl-auto: none

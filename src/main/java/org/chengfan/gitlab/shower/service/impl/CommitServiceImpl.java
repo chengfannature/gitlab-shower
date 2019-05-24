@@ -32,6 +32,7 @@ public class CommitServiceImpl implements CommitService {
     @Autowired
     GitlabAPI gitlabAPI;
 
+    @Override
     public void saveCommits(int projectId) {
         List<GitlabCommitWithStats> commits = null;
         try {
@@ -48,7 +49,7 @@ public class CommitServiceImpl implements CommitService {
         //过滤超大addition/deletion的提交(通常都是代码同步)
         commits.stream()
                 .filter(c -> c.getGitlabCommitStats().getTotal() < MAX_CODE_LINE_PER_COMMIT)
-                .filter(c -> isNewerCommit(c, lastUpdatedCommit))
+//                .filter(c -> isNewerCommit(c, lastUpdatedCommit))
                 .forEach(commitWithStats -> {
                     Commit commit = buildCommit(commitWithStats, projectId);
                     commitRepository.save(commit);

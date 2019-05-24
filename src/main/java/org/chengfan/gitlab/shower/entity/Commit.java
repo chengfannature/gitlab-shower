@@ -19,11 +19,9 @@ public class Commit {
 
     @Id
     private String id;
-    @NotBlank
     private String shortId;
     @NotBlank
     private String authorName;
-    @NotBlank
     private String authorEmail;
 
     @DateTimeFormat

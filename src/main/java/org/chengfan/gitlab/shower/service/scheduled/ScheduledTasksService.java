@@ -1,6 +1,6 @@
 package org.chengfan.gitlab.shower.service.scheduled;
 
-import org.chengfan.gitlab.shower.GitlabConfig;
+import org.chengfan.gitlab.shower.config.GitlabProperties;
 import org.chengfan.gitlab.shower.entity.User;
 import org.chengfan.gitlab.shower.repository.UserRepository;
 import org.chengfan.gitlab.shower.service.CommitService;
@@ -31,7 +31,7 @@ public class ScheduledTasksService {
     NoteService noteService;
 
     @Autowired
-    GitlabConfig gitlabConfig;
+    GitlabProperties gitlabProperties;
 
     @Autowired
     UserRepository userRepository;
@@ -41,14 +41,14 @@ public class ScheduledTasksService {
     public void reloadProjectData() {
         GitlabGroup group = null;
         try {
-            group = gitlabAPI.getGroup(gitlabConfig.getGroup());
+            group = gitlabAPI.getGroup(gitlabProperties.getGroup());
         } catch (IOException e) {
             e.printStackTrace();
         }
         if (group == null) {
             return;
         }
-        List<String> configProjects = gitlabConfig.getProjects();
+        List<String> configProjects = gitlabProperties.getProjects();
         List<GitlabProject> projects = group.getProjects();
         projects.stream().filter(p->configProjects.contains(p.getName())).forEach(p -> {
 //            commitService.saveCommits(p.getId());

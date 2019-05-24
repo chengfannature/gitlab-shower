@@ -2,8 +2,6 @@ package org.chengfan.gitlab.shower;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
-import org.gitlab.api.GitlabAPI;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class Application {
 
-	@Autowired
-    GitlabConfig gitlabConfig;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -26,10 +22,7 @@ public class Application {
 	}
 
 
-	@Bean
-	public GitlabAPI gitlabAPI() {
-		return GitlabAPI.connect(gitlabConfig.getUrl(), gitlabConfig.getToken());
-	}
+
 
 
 }
