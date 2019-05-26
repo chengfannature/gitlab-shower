@@ -1,18 +1,22 @@
 <template>
     <div>
         <div id="main" style="width: 900px;height: 250px;"></div>
-        <div class="row">
-            <div class="card mb-4" v-for="style in styles">
+        <div class="row" v-if="peoples.length!=0">
+            <div class="col-md-6" v-for="people in peoples">
                 <div class="card mb-4">
-                    <h3><a class="url">彭小刚</a>
-                        <span class="f5 text-normal text-gray-light float-right">#4</span>
-                        <div><a href="https://github.com/vuejs/vue/commits?author=kazupon"
-                                class="link-gray text-normal">32 commits</a>
+                    <div class="card mb-4">
+                        <h4><a class="url">{{people.username}}</a>
+                            <span class="f5 text-normal text-gray-light float-right">{{people.style}}</span>
+                            <div><a href="https://github.com/vuejs/vue/commits?author=kazupon"
+                                    class="link-gray text-normal">{{people.commitCount}} commits   </a>
+                                <a class="text-normal" style="color: green">{{people.additionSum}}++  </a>
+                                <a class="text-normal" style="color: red">{{people.deletionSum}}--</a>
+                            </div>
+                        </h4>
+                        <hr/>
+                        <div class="card-body">
+                            <div :id="people.style" style="width: 400px;height: 200px;"></div>
                         </div>
-                    </h3>
-                    <hr/>
-                    <div class="card-body">
-                        <div :id="style" style="width: 300px;height: 200px;"></div>
                     </div>
                 </div>
             </div>
@@ -41,17 +45,55 @@
         ready: function () {
             this.getPeoples();
         },
+        beforeCreate() {
+        },
+        created() {
+            this.getPeoples();
+        },
         methods: {
+
             getPeoples: function () {
                 var vm = this;
                 vm.$http.get("http://localhost:8081/api/gitlab/star").then(
-                    function (commits) {
-                        this.peoples = commits.body;
-                        this.dataAxis = this.peoples;
-                        this.lineChart('main');
-                        this.lineChart('main1');
-                        this.lineChart('main2');
-                        this.lineChart('main3');
+                    function (contributions) {
+                        this.peoples = contributions.body;
+                        // this.peoples = contributions.body;
+                        this.peoples = [{
+                            id: '1',
+                            username: 'pengxg',
+                            email: 'pengxg@greenet.net.cn',
+                            commitCount: 20,
+                            additionSum: 60,
+                            deletionSum: 20
+                        },
+                            {
+                                id: '2',
+                                username: 'chengfan',
+                                email: 'chengfan@greenet.net.cn',
+                                commitCount: 30,
+                                additionSum: 72,
+                                deletionSum: 23
+                            },
+                            {
+                                id: '3',
+                                username: 'leigang',
+                                email: 'leigang@greenet.net.cn',
+                                commitCount: 10,
+                                additionSum: 22,
+                                deletionSum: 12
+                            },
+                            {
+                                id: '4',
+                                username: 'caojm',
+                                email: 'caojm@greenet.net.cn',
+                                commitCount: 35,
+                                additionSum: 87,
+                                deletionSum: 28
+                            }];
+                        for (var i = 0; i <= this.peoples.length; i++) {
+                            this.peoples[i].style = '#' + i;
+                        }
+
                     }).catch(e => {
                     e.toString();
                 })
@@ -63,7 +105,7 @@
                     this.date.push(date);
                     this.data.push(Math.round((Math.random() - 0.5) * 20 + this.data[i - 1]));
                 }
-                this.charts = echarts.init(document.getElementById(id))
+                this.charts = echarts.init(document.getElementById(id));
                 this.charts.setOption({
                     tooltip: {
                         trigger: 'axis',
@@ -137,9 +179,15 @@
         },
         mounted() {
             this.$nextTick(function () {
-                this.getPeoples();
+                this.lineChart('main');
             })
+        },
+        updated() {
+            for (var i = 0; i <= this.peoples.length; i++) {
+                this.lineChart('#' + i);
+            }
         }
+
     }
 </script>
 
