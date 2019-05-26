@@ -1,6 +1,7 @@
 package org.chengfan.gitlab.shower.repository;
 
 import org.chengfan.gitlab.shower.dto.CommitDto;
+import org.chengfan.gitlab.shower.dto.CommitStatisticDto;
 import org.chengfan.gitlab.shower.entity.Commit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,50 +25,56 @@ import static org.junit.Assert.assertTrue;
 @DataJpaTest
 public class CommitRepositoryTest {
 
-    /**
-     * 总的commit测试数据，在data.sql中可以读取
-     */
-    private static final int TOTAL_COMMIT_RECORD_NUM = 4;
-    /**
-     * 时间有效的测试数据，另外的数据是伪造的，时间不对
-     */
-    private static final int REAL_COMMIT_RECORD_NUM = 3;
+	/**
+	 * 总的commit测试数据，在data.sql中可以读取
+	 */
+	private static final int TOTAL_COMMIT_RECORD_NUM = 4;
+	/**
+	 * 时间有效的测试数据，另外的数据是伪造的，时间不对
+	 */
+	private static final int REAL_COMMIT_RECORD_NUM = 3;
 
 
-    @Autowired
-    CommitRepository commitRepository;
+	@Autowired
+	CommitRepository commitRepository;
 
-    @Autowired
-    TestEntityManager entityManager;
+	@Autowired
+	TestEntityManager entityManager;
 
-    @Test
-    public void testDbInit() {
-        List<Commit> commits = commitRepository.findAll();
-        assertEquals(TOTAL_COMMIT_RECORD_NUM, commits.size());
-    }
+	@Test
+	public void testDbInit() {
+		List<Commit> commits = commitRepository.findAll();
+		assertEquals(TOTAL_COMMIT_RECORD_NUM, commits.size());
+	}
 
-    @Test
-    public void saveCommitAndGetOne() {
-        Commit commit = new Commit();
-        commit.setId("aaanc");
-        commit.setAuthorName("chengfan");
-        commit.setAdditions(100);
-        commit.setDeletions(10);
-        commit.setCreatedAt(now());
-        entityManager.persistAndFlush(commit);
-        List<Commit> commits = commitRepository.findByAuthorName("chengfan");
-        assertNotNull(commits);
-    }
+	@Test
+	public void saveCommitAndGetOne() {
+		Commit commit = new Commit();
+		commit.setId("aaanc");
+		commit.setAuthorName("chengfan");
+		commit.setAdditions(100);
+		commit.setDeletions(10);
+		commit.setCreatedAt(now());
+		entityManager.persistAndFlush(commit);
+		List<Commit> commits = commitRepository.findByAuthorName("chengfan");
+		assertNotNull(commits);
+	}
 
-    @Test
-    public void testGetCommitStatistic() throws ParseException {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date startDateTime = format.parse("2018-07-30 00:00:00");
-        Date endDateTime = format.parse("2019-07-30 00:00:00");
-        assertTrue(commitRepository.count() > 0);
-        List<CommitDto> commitStatisticList = commitRepository
-                .findCommitGroupByAuthor(startDateTime, endDateTime, "additions");
-        assertNotNull(commitStatisticList);
-        assertEquals(REAL_COMMIT_RECORD_NUM, commitStatisticList.size());
-    }
+	@Test
+	public void testGetCommitStatistic() throws ParseException {
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date startDateTime = format.parse("2018-07-30 00:00:00");
+		Date endDateTime = format.parse("2019-07-30 00:00:00");
+		assertTrue(commitRepository.count() > 0);
+		List<CommitDto> commitStatisticList = commitRepository
+				.findCommitGroupByAuthor(startDateTime, endDateTime, "additions");
+		assertNotNull(commitStatisticList);
+		assertEquals(REAL_COMMIT_RECORD_NUM, commitStatisticList.size());
+	}
+
+	@Test
+	public void testFindCommitsGroupByTime() {
+		List<CommitStatisticDto> commitsGroupByTime = commitRepository.findCommitsGroupByTime();
+		assertTrue(commitsGroupByTime.size() > 0);
+	}
 }
