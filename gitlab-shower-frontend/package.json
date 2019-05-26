@@ -16,7 +16,8 @@
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "jquery": "1.9.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",
