@@ -20,21 +20,22 @@
                                     Dashboard <span class="sr-only">(current)</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <router-link to="/">Home</router-link>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <router-link to="/about">About</router-link>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <router-link to="/info">info</router-link>
-                                </a>
-                            </li>
+                            <!--</li>-->
+                            <!--<li class="nav-item">-->
+                                <!--<a class="nav-link" href="#">-->
+                                    <!--<router-link to="/">Home</router-link>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li class="nav-item">-->
+                                <!--<a class="nav-link" href="#">-->
+                                    <!--<router-link to="/about">About</router-link>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li class="nav-item">-->
+                                <!--<a class="nav-link" href="#">-->
+                                    <!--<router-link to="/info">info</router-link>-->
+                                <!--</a>-->
+                            <!--</li>-->
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <router-link to="/gitlab-insight">打星评分</router-link>
