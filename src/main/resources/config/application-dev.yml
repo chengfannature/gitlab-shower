@@ -1,7 +1,11 @@
 # control the java code db initialization (hibernate and seeder)
 spring:
-  datasource:
-    initialization-mode: embedded
-  jpa:
-    hibernate:
-      ddl-auto: none
+    datasource:
+        initialization-mode: embedded
+    jpa:
+        hibernate:
+            ddl-auto: none
+    jackson:
+        date-format: yyyy-MM-dd HH:mm:ss
+        time-zone: GMT+8
+

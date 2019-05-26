@@ -1,10 +1,6 @@
 package org.chengfan.gitlab.shower.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Commit dto 描述了提交数和总提交代码量的统计数据.
@@ -13,6 +9,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CommitDto {
     /**
      * 用户名

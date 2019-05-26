@@ -72,7 +72,6 @@ public class NoteServiceImpl implements NoteService {
         note.setId(gitlabNote.getId());
         note.setCreatedAt(gitlabNote.getCreatedAt());
         note.setBody(gitlabNote.getBody());
-        note.setResolved(gitlabNote.isResolved());
         return note;
     }
 }
