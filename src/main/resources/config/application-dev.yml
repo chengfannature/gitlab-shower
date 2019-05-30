@@ -9,3 +9,17 @@ spring:
         date-format: yyyy-MM-dd HH:mm:ss
         time-zone: GMT+8
 
+gitlab:
+    url: http://172.16.18.101
+    token: 5xVvXGoDpeNSEjMUe7yZ
+    group: test
+    projects:
+        - nisp-web
+        - nisp-etl
+        - nisp-ctl
+    excludeUsers:
+        - tongxin
+        - sonar
+        - ghost
+        - root
+        - yanli

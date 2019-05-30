@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.DateFormat;
@@ -67,14 +68,13 @@ public class CommitRepositoryTest {
 		Date endDateTime = format.parse("2019-07-30 00:00:00");
 		assertTrue(commitRepository.count() > 0);
 		List<CommitDto> commitStatisticList = commitRepository
-				.findCommitGroupByAuthor(startDateTime, endDateTime, "additions");
+				.findCommitGroupByAuthor(startDateTime, endDateTime, new Sort(Sort.Direction.DESC, "additions"));
 		assertNotNull(commitStatisticList);
 		assertEquals(REAL_COMMIT_RECORD_NUM, commitStatisticList.size());
 	}
 
-	@Test
 	public void testFindCommitsGroupByTime() {
-		List<CommitStatisticDto> commitsGroupByTime = commitRepository.findCommitsGroupByTime();
+		List<CommitStatisticDto> commitsGroupByTime = commitRepository.findCommitsGroupByTime(new Sort(Sort.Direction.DESC, "additions"));
 		assertTrue(commitsGroupByTime.size() > 0);
 	}
 }

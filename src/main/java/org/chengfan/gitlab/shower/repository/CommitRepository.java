@@ -3,9 +3,9 @@ package org.chengfan.gitlab.shower.repository;
 import org.chengfan.gitlab.shower.dto.CommitDto;
 import org.chengfan.gitlab.shower.dto.CommitStatisticDto;
 import org.chengfan.gitlab.shower.entity.Commit;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -34,26 +34,24 @@ public interface CommitRepository extends JpaRepository<Commit, Integer> {
 	 *
 	 * @param startTime 统计的开始时间
 	 * @param endTime   统计的结束时间
-	 * @param orderBy   排序字段
+	 * @param sort      排序字段
 	 * @return 统计列表
 	 */
 	@Query(value = "select new org.chengfan.gitlab.shower.dto.CommitDto(authorName, " +
 			" authorEmail, count(authorName), SUM(additions), SUM(deletions)) " +
 			" from Commit" +
 			" where createdAt between ?1 and ?2" +
-			" group by authorName" +
-			" order by additions desc ")
+			" group by authorName")
 	List<CommitDto> findCommitGroupByAuthor(Date startTime,
 											Date endTime,
-											String orderBy);
+											Sort sort);
 
 
 	@Query(value = "select new org.chengfan.gitlab.shower.dto.CommitStatisticDto(createdAt, " +
 			" SUM(additions), SUM(deletions),count(createdAt)) " +
 			" from Commit" +
-			" group by createdAt" +
-			" order by additions desc ")
-	List<CommitStatisticDto> findCommitsGroupByTime();
+			" group by createdAt")
+	List<CommitStatisticDto> findCommitsGroupByTime(Sort sort);
 
 
 }

@@ -36,11 +36,11 @@ public class ContributorServiceImpl implements ContributorService {
     public static final int INIT_NOTE_MAP_SIZE = 100;
 
     @Override
-    public List<ContributionDto> getDtoContributors(String orderBy, Date startTime, Date endTime) {
+    public List<ContributionDto> getDtoContributors(Sort sort, Date startTime, Date endTime) {
 
 
         List<CommitDto> commitDtoList = commitRepository.
-                findCommitGroupByAuthor(startTime, endTime, orderBy);
+                findCommitGroupByAuthor(startTime, endTime, sort);
         List<NoteDto> noteDtoList = noteRepository.
                 countNoteGroupByAuthorName(startTime, endTime);
         Map<String, Long> authorNoteMap = buildAuthorNoteMap(noteDtoList);
