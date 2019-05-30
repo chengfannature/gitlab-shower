@@ -13,13 +13,7 @@ import java.util.List;
 public class CommitStatisticServiceImpl implements CommitStatisticService {
     @PersistenceContext
     private EntityManager entityManager;
-    private static final String SQL = "SELECT \n" +
-            "    DATE_FORMAT(created_at, \"%Y-%m-%d\"),\n" +
-            "    COUNT(id),\n" +
-            "    SUM(additions),\n" +
-            "    SUM(deletions)\n" +
-            "FROM\n" +
-            "    gitlab.commit\n";
+    private static final String SQL = "";
     private static final String USERNAME_FILTER = " where username=";
     private static final String GROUP_BY_DATE = " GROUP BY DATE_FORMAT(created_at, \"%Y-%m-%d\")";
 

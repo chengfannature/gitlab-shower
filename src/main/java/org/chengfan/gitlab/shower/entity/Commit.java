@@ -17,25 +17,23 @@ import java.util.Date;
 @Data
 public class Commit {
 
-    @Id
-    private String id;
-    @NotBlank
-    private String shortId;
-    @NotBlank
-    private String authorName;
-    @NotBlank
-    private String authorEmail;
+	@Id
+	private String id;
+	private String shortId;
+	@NotBlank
+	private String authorName;
+	private String authorEmail;
 
-    @DateTimeFormat
-    private Date createdAt;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private Date createdAt;
 
-    @PositiveOrZero
-    private int projectId;
+	@PositiveOrZero
+	private int projectId;
 
-    @PositiveOrZero
-    private int additions;
+	@PositiveOrZero
+	private int additions;
 
-    @PositiveOrZero
-    private int deletions;
+	@PositiveOrZero
+	private int deletions;
 
 }

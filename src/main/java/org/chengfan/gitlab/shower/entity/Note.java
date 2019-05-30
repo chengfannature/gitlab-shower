@@ -39,13 +39,11 @@ public class Note {
     /**
      * 描述检视意见是否被采纳和解决,true表示接受并修改了该意见
      */
-
     private boolean resolved;
 
     /**
      * 检视意见内容.
      */
-
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "longtext")
     private String body;
 }

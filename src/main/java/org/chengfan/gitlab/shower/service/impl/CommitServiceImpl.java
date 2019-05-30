@@ -3,15 +3,18 @@ package org.chengfan.gitlab.shower.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.chengfan.gitlab.shower.entity.Commit;
+import org.chengfan.gitlab.shower.entity.Note;
 import org.chengfan.gitlab.shower.repository.CommitRepository;
 import org.chengfan.gitlab.shower.service.CommitService;
 import org.gitlab.api.GitlabAPI;
 import org.gitlab.api.models.GitlabCommitStats;
 import org.gitlab.api.models.GitlabCommitWithStats;
+import org.gitlab.api.models.GitlabNote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +32,7 @@ public class CommitServiceImpl implements CommitService {
     @Autowired
     GitlabAPI gitlabAPI;
 
+    @Override
     public void saveCommits(int projectId) {
         List<GitlabCommitWithStats> commits = null;
         try {
@@ -40,15 +44,19 @@ public class CommitServiceImpl implements CommitService {
         if (commits == null || commits.size() == 0) {
             return;
         }
+        Commit lastUpdatedCommit = commitRepository.findFirstByOrderByCreatedAt();
         long start = System.currentTimeMillis();
         //过滤超大addition/deletion的提交(通常都是代码同步)
-        commits.stream().filter(c -> c.getGitlabCommitStats().getTotal() < MAX_CODE_LINE_PER_COMMIT)
+        commits.stream()
+                .filter(c -> c.getGitlabCommitStats().getTotal() < MAX_CODE_LINE_PER_COMMIT)
+//                .filter(c -> isNewerCommit(c, lastUpdatedCommit))
                 .forEach(commitWithStats -> {
                     Commit commit = buildCommit(commitWithStats, projectId);
                     commitRepository.save(commit);
                 });
         long end = System.currentTimeMillis();
-        log.info("take {} to insert into database, total records {}", end - start, commits.size());
+        log.debug("take {} to insert into database for project {}, " +
+                          "total records {}", end - start, projectId, commits.size());
     }
 
     @Override
@@ -68,5 +76,12 @@ public class CommitServiceImpl implements CommitService {
         commit.setAdditions(stats.getAdditions());
         commit.setDeletions(stats.getDeletions());
         return commit;
+    }
+
+    private boolean isNewerCommit(GitlabCommitWithStats newCommit, Commit lastUpdatedCommit) {
+        if (lastUpdatedCommit == null || lastUpdatedCommit.getCreatedAt() == null) {
+            return true;
+        }
+        return newCommit.getCreatedAt().after(lastUpdatedCommit.getCreatedAt());
     }
 }
