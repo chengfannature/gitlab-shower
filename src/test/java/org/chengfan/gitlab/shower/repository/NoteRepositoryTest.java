@@ -1,7 +1,6 @@
 package org.chengfan.gitlab.shower.repository;
 
 import org.chengfan.gitlab.shower.dto.NoteDto;
-import org.chengfan.gitlab.shower.entity.Note;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

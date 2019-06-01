@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * commit统计DTO,用于绘制commit趋势图,分两种,一种是项目提交的趋势图,一种是个人提交趋势图.
+ * 根据时间做过汇聚的commit统计DTO,用于绘制commit趋势图,分两种,一种是项目提交的趋势图,一种是个人提交趋势图.
  */
 @AllArgsConstructor
 @Data

@@ -3,18 +3,15 @@ package org.chengfan.gitlab.shower.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.chengfan.gitlab.shower.entity.Commit;
-import org.chengfan.gitlab.shower.entity.Note;
 import org.chengfan.gitlab.shower.repository.CommitRepository;
 import org.chengfan.gitlab.shower.service.CommitService;
 import org.gitlab.api.GitlabAPI;
 import org.gitlab.api.models.GitlabCommitStats;
 import org.gitlab.api.models.GitlabCommitWithStats;
-import org.gitlab.api.models.GitlabNote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 @Service

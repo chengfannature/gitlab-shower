@@ -3,8 +3,11 @@ package org.chengfan.gitlab.shower.repository;
 import org.chengfan.gitlab.shower.dto.CommitDto;
 import org.chengfan.gitlab.shower.dto.CommitStatisticDto;
 import org.chengfan.gitlab.shower.entity.Commit;
+import org.chengfan.gitlab.shower.model.CommitInfoRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface CommitRepository extends JpaRepository<Commit, Integer> {
+public interface CommitRepository extends JpaRepository<Commit, Integer>, JpaSpecificationExecutor<Commit> {
 	/**
 	 * 获取某个author的所有提交.
 	 *
@@ -28,7 +31,6 @@ public interface CommitRepository extends JpaRepository<Commit, Integer> {
 	 */
 	Commit findFirstByOrderByCreatedAt();
 
-
 	/**
 	 * 获取每个人在某段时间内的总体积数，总代码新增代码数，总删除代码数
 	 *
@@ -37,21 +39,18 @@ public interface CommitRepository extends JpaRepository<Commit, Integer> {
 	 * @param sort      排序字段
 	 * @return 统计列表
 	 */
-	@Query(value = "select new org.chengfan.gitlab.shower.dto.CommitDto(authorName, " +
-			" authorEmail, count(authorName), SUM(additions), SUM(deletions)) " +
-			" from Commit" +
-			" where createdAt between ?1 and ?2" +
-			" group by authorName")
-	List<CommitDto> findCommitGroupByAuthor(Date startTime,
-											Date endTime,
-											Sort sort);
+	@Query(value = "select new org.chengfan.gitlab.shower.dto.CommitDto(authorName, "
+			+ " authorEmail, count(authorName) as commitCount, SUM(additions) as additionSum, SUM(deletions) as deletionSum)"
+			+ " from Commit" + " where createdAt between ?1 and ?2" + " group by authorName")
+	List<CommitDto> findCommitGroupByAuthor(Date startTime, Date endTime, Sort sort);
 
+	@Query(value = "select new org.chengfan.gitlab.shower.dto.CommitStatisticDto(createdAt, "
+			+ " SUM(additions) as additionSum, SUM(deletions) as deletionSum,count(createdAt)) " + " from Commit"
+			+ " where createdAt between ?1 and ?2" + " group by createdAt")
+	List<CommitStatisticDto> findCommitStatisticDtos(Date startTime, Date endTime);
 
-	@Query(value = "select new org.chengfan.gitlab.shower.dto.CommitStatisticDto(createdAt, " +
-			" SUM(additions), SUM(deletions),count(createdAt)) " +
-			" from Commit" +
-			" group by createdAt")
-	List<CommitStatisticDto> findCommitsGroupByTime(Sort sort);
-
-
+	@Query(value = "select new org.chengfan.gitlab.shower.dto.CommitStatisticDto(createdAt, "
+			+ " SUM(additions) as additionSum, SUM(deletions) as deletionSum,count(createdAt)) " + " from Commit"
+			+ " where createdAt between ?1 and ?2" + " and authorName= ?3" + " group by createdAt")
+	List<CommitStatisticDto> findCommitStatisticDtosByAuthor(Date startTime, Date endTime, String authorName);
 }
