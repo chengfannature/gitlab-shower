@@ -1,70 +1,110 @@
+<style scoped>
+    .layout {
+        border: 1px solid #d7dde4;
+        background: #f5f7f9;
+        position: relative;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .layout-logo {
+        width: 100px;
+        height: 30px;
+        background: #5b6270;
+        border-radius: 3px;
+        float: left;
+        position: relative;
+        top: 15px;
+        left: 20px;
+    }
+
+    .layout-desc {
+        height: 30px;
+        float: left;
+        top: 15px;
+        left: 20px;
+    }
+
+    .layout-nav {
+        width: 200px;
+        margin: 0 auto;
+        margin-right: 20px;
+    }
+
+    .layout-footer-center {
+        text-align: center;
+    }
+</style>
 <template>
-    <div>
-        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">武汉绿色网络</a>
-            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="／">Sign out</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="container-fluid">
-            <div class="row">
-                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                    <div class="sidebar-sticky">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">
-                                    <span data-feather="home"></span>
-                                    Dashboard <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                            <!--</li>-->
-                            <!--<li class="nav-item">-->
-                                <!--<a class="nav-link" href="#">-->
-                                    <!--<router-link to="/">Home</router-link>-->
-                                <!--</a>-->
-                            <!--</li>-->
-                            <!--<li class="nav-item">-->
-                                <!--<a class="nav-link" href="#">-->
-                                    <!--<router-link to="/about">About</router-link>-->
-                                <!--</a>-->
-                            <!--</li>-->
-                            <!--<li class="nav-item">-->
-                                <!--<a class="nav-link" href="#">-->
-                                    <!--<router-link to="/info">info</router-link>-->
-                                <!--</a>-->
-                            <!--</li>-->
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <router-link to="/gitlab-insight">打星评分</router-link>
-                                </a>
-                            </li>
-                        </ul>
+    <div class="layout">
+        <Layout>
+            <Header>
+                <Menu mode="horizontal" theme="dark" active-name="1">
+                    <div class="layout-desc">
+                        <MenuItem name="1">
+                            <Icon type="ios-navigate"></Icon>
+                            武汉绿网
+                        </MenuItem>
                     </div>
-                </nav>
+                    <div class="layout-nav">
+                        <MenuItem name="8">
+                            <Icon type="ios-keypad"></Icon>
+                            打星评分
+                        </MenuItem>
+                    </div>
+                </Menu>
+            </Header>
+            <Layout :style="{padding: '0 50px'}">
+                <Breadcrumb :style="{margin: '16px 0'}">
+                    <BreadcrumbItem>Home</BreadcrumbItem>
+                    <BreadcrumbItem>Components</BreadcrumbItem>
+                    <BreadcrumbItem>Layout</BreadcrumbItem>
+                </Breadcrumb>
+                <Content :style="{padding: '24px 0', minHeight: '280px', background: '#fff'}">
+                    <Layout>
+                        <Sider hide-trigger :style="{background: '#fff'}">
+                            <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
+                                <Submenu name="8">
+                                    <template slot="title">
+                                        <Icon type="ios-analytics"></Icon>
+                                        打分
+                                    </template>
+                                    <MenuItem name="3-1">
+                                        <a href="#">
+                                            <router-link to="/gitlab-insight">打星评分</router-link>
+                                        </a>
+                                    </MenuItem>
+                                    <MenuItem name="3-2">Option 2</MenuItem>
+                                </Submenu>
 
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                        <h1 class="h2">Dashboard</h1>
-                        <div class="btn-toolbar mb-2 mb-md-0">
-                            <div class="btn-group mr-2">
-                                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                                <button class="btn btn-sm btn-outline-secondary">Export</button>
+                            </Menu>
+                        </Sider>
+                        <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+                            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                                <h1 class="h2">NISP Dashboard</h1>
+                                <div class="btn-toolbar mb-2 mb-md-0">
+                                    <div class="btn-group mr-2">
+                                        <button class="btn btn-sm btn-outline-secondary">Share</button>
+                                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                                        <span data-feather="calendar"></span>
+                                        This week
+                                    </button>
+                                </div>
                             </div>
-                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                                <span data-feather="calendar"></span>
-                                This week
-                            </button>
-                        </div>
-                    </div>
 
-                    <router-view/>
-                    <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+                            <router-view/>
+                            <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
 
-                </main>
-            </div>
-        </div>
+                        </Content>
+                    </Layout>
+                </Content>
+            </Layout>
+            <Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer>
+        </Layout>
     </div>
 </template>
+<script>
+    export default {}
+</script>
