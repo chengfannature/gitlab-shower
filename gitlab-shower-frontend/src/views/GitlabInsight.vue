@@ -1,22 +1,39 @@
 <template>
     <div>
-        <div id="main" style="width: 900px;height: 250px;"></div>
+        <Col span="12">
+            <label>开始时间：</label>
+            <DatePicker type="daterange" :options="options2" @on-change="timeChange" format="yyyy-MM-dd"
+                        placeholder="选择时间" style="width: 200px">
+            </DatePicker>
+        </Col>
+        <Col span="4" offset="8">
+            <Button type="default" style="text-align: right" v-on:click="queryCommit()">查询</Button>
+        </Col>
+
+        <Table :columns="columnDeveloper" :data="peoples" size="small" ref="table"></Table>
+        <Card>
+            <div id="main" style="width: 900px;height: 250px;"></div>
+        </Card>
         <div class="row" v-if="peoples.length!=0">
             <div class="col-md-6" v-for="people in peoples">
                 <div class="card mb-4">
-                    <div class="card mb-4">
-                        <h4><a class="url">{{people.username}}</a>
-                            <span class="f5 text-normal text-gray-light float-right">{{people.style}}</span>
-                            <div><a href="https://github.com/vuejs/vue/commits?author=kazupon"
-                                    class="link-gray text-normal">{{people.commitCount}} commits   </a>
-                                <a class="text-normal" style="color: green">{{people.additionSum}}++  </a>
-                                <a class="text-normal" style="color: red">{{people.deletionSum}}--</a>
-                            </div>
-                        </h4>
-                        <hr/>
-                        <div class="card-body">
-                            <div :id="people.style" style="width: 400px;height: 200px;"></div>
+                    <Card>
+                        <p slot="title">
+                            <Icon type="ios-film-outline"></Icon>
+                            {{people.userName}}
+                        </p>
+                        <a slot="extra">
+                            <Icon type="ios-loop-strong"></Icon>
+                            {{people.style}}
+                        </a>
+                        <div>
+                            <a class="link-gray text-normal">{{people.commitCount}} commits </a>
+                            <a class="text-normal" style="color: green">{{people.additionSum}}++ </a>
+                            <a class="text-normal" style="color: red">{{people.deletionSum}}--</a>
                         </div>
+                    </Card>
+                    <div class="card-body">
+                        <div :id="people.style" style="width: 400px;height: 200px;"></div>
                     </div>
                 </div>
             </div>
@@ -26,9 +43,13 @@
 
 <script>
     import echarts from 'echarts'
+    import {DatePicker, Button} from 'iview';
 
     export default {
         name: "gitlab-insight",
+        components: {
+            DatePicker, Button
+        },
         data() {
             return {
                 peoples: [],
@@ -39,61 +60,92 @@
                 oneDay: 24 * 3600 * 1000,
                 date: [],
                 data: [Math.random() * 300],
-                styles: ['main1', 'main2', 'main3']
+                startTime: '',
+                endTime: '',
+                columnDeveloper: [
+                    {
+                        "title": "研发",
+                        "key": "userName",
+                        "fixed": "left",
+                        "width": 150
+                    },
+                    {
+                        "title": "提交总次数",
+                        "key": "commitCount",
+                        "width": 200,
+                        "sortable": true,
+                    },
+                    {
+                        "title": "添加总行数",
+                        "key": "additionSum",
+                        "width": 200,
+                        "sortable": true
+                    }, {
+                        "title": "删除总行数",
+                        "key": "deletionSum",
+                        "width": 200,
+                        "sortable": true
+                    }, {
+                        "title": "提交时间",
+                        "key": "createAt",
+                        "width": 300,
+                        "sortable": true
+                    }
+                ],
+                dataDeveloper: [],
+                options2: {
+                    shortcuts: [
+                        {
+                            text: '1 week',
+                            value() {
+                                const end = new Date();
+                                const start = new Date();
+                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                                return [start, end];
+                            }
+                        },
+                        {
+                            text: '1 month',
+                            value() {
+                                const end = new Date();
+                                const start = new Date();
+                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                                return [start, end];
+                            }
+                        }
+                    ]
+                }
             }
         },
         ready: function () {
             this.getPeoples();
         },
-        beforeCreate() {
-        },
         created() {
             this.getPeoples();
         },
         methods: {
-
-            getPeoples: function () {
-                var vm = this;
-                vm.$http.get("http://localhost:8081/api/gitlab/star").then(
+            queryCommit() {
+                this.$http.get("http://localhost:8081/contributions/byDate?" +
+                    "orderBy=created_at&startTime=" + this.startTime + "&endTime=" + this.endTime).then(
                     function (contributions) {
                         this.peoples = contributions.body;
-                        // this.peoples = contributions.body;
-                        this.peoples = [{
-                            id: '1',
-                            username: 'pengxg',
-                            email: 'pengxg@greenet.net.cn',
-                            commitCount: 20,
-                            additionSum: 60,
-                            deletionSum: 20
-                        },
-                            {
-                                id: '2',
-                                username: 'chengfan',
-                                email: 'chengfan@greenet.net.cn',
-                                commitCount: 30,
-                                additionSum: 72,
-                                deletionSum: 23
-                            },
-                            {
-                                id: '3',
-                                username: 'leigang',
-                                email: 'leigang@greenet.net.cn',
-                                commitCount: 10,
-                                additionSum: 22,
-                                deletionSum: 12
-                            },
-                            {
-                                id: '4',
-                                username: 'caojm',
-                                email: 'caojm@greenet.net.cn',
-                                commitCount: 35,
-                                additionSum: 87,
-                                deletionSum: 28
-                            }];
+                    }).catch(e => {
+                    e.toString();
+                })
+            },
+
+            timeChange(w) {
+                this.startTime = w[0];
+                this.endTime = w[1];
+            },
+            getPeoples: function () {
+                var vm = this;
+                vm.$http.get("http://localhost:8081/contributions/history?orderBy=created_at").then(
+                    function (contributions) {
+                        this.peoples = contributions.body;
                         for (var i = 0; i <= this.peoples.length; i++) {
                             this.peoples[i].style = '#' + i;
                         }
-
                     }).catch(e => {
                     e.toString();
                 })
@@ -192,23 +244,6 @@
 </script>
 
 <style scoped>
-    .test_demo_clip {
-        text-overflow: clip;
-        overflow: hidden;
-        white-space: nowrap;
-        width: 200px;
-        background: #ccc;
-    }
-
-    .test_demo_ellipsis {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        height: 100px;
-        width: 200px;
-        background: rgba(249, 249, 249, 0.01);
-    }
-
     .text-normal {
         font-weight: 400 !important;
         font-size: small;
