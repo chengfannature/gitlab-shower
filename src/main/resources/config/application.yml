@@ -1,5 +1,13 @@
 spring:
   profiles:
-    active: dev
-
-
+    active: nisp
+  mvc:
+    view:
+      # 如果配置了spring-resources，则必须包含classpath:/static/
+      # 访问静态页面 /pages/指定路径为 /static/pages/
+      prefix: /
+      # 静态页面后缀
+      suffix: .html
+  resources:
+    # 静态文件路径, 资源路径，博客路径
+    static-locations: classpath:/dist/

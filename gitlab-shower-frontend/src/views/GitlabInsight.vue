@@ -125,7 +125,7 @@
         },
         methods: {
             queryCommit() {
-                this.$http.get("http://localhost:8081/contributions/byDate?" +
+                this.$http.get("/contributions/byDate?" +
                     "orderBy=created_at&startTime=" + this.startTime + "&endTime=" + this.endTime).then(
                     function (contributions) {
                         this.peoples = contributions.body;
@@ -140,7 +140,7 @@
             },
             getPeoples: function () {
                 var vm = this;
-                vm.$http.get("http://localhost:8081/contributions/history?orderBy=created_at").then(
+                vm.$http.get("/contributions/history?orderBy=created_at").then(
                     function (contributions) {
                         this.peoples = contributions.body;
                         for (var i = 0; i <= this.peoples.length; i++) {

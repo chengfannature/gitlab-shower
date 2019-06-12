@@ -74,7 +74,6 @@
                                             <router-link to="/gitlab-insight">打星评分</router-link>
                                         </a>
                                     </MenuItem>
-                                    <MenuItem name="3-2">Option 2</MenuItem>
                                 </Submenu>
 
                             </Menu>
@@ -101,7 +100,7 @@
                     </Layout>
                 </Content>
             </Layout>
-            <Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer>
+            <Footer class="layout-footer-center">2011-2019 &copy; 武汉绿网</Footer>
         </Layout>
     </div>
 </template>
