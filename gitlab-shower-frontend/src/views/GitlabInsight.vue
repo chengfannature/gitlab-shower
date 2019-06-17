@@ -1,19 +1,27 @@
 <template>
     <div>
-        <Col span="12">
-            <label>开始时间：</label>
-            <DatePicker type="daterange" :options="options2" @on-change="timeChange" format="yyyy-MM-dd"
-                        placeholder="选择时间" style="width: 200px">
-            </DatePicker>
-        </Col>
-        <Col span="4" offset="8">
-            <Button type="default" style="text-align: right" v-on:click="queryCommit()">查询</Button>
-        </Col>
-
-        <Table :columns="columnDeveloper" :data="peoples" size="small" ref="table"></Table>
-        <Card>
-            <div id="main" style="width: 900px;height: 250px;"></div>
-        </Card>
+        <div class="form form-group">
+            <Row>
+                <Col span="12">
+                    <label>开始时间：</label>
+                    <DatePicker type="daterange" :options="options2" :value="values2" @on-change="timeChange"
+                                format="yyyy-MM-dd"
+                                placeholder="选择时间" style="width: 200px">
+                    </DatePicker>
+                </Col>
+                <Col span="4" offset="8">
+                    <Button type="default" style="text-align: right" v-on:click="queryCommit()">查询</Button>
+                </Col>
+            </Row>
+        </div>
+        <div class="form form-group">
+            <Table :columns="columnDeveloper" :data="peoples" size="small" ref="table"></Table>
+        </div>
+        <div class="form form-group">
+            <Card>
+                <div id="main" style="width: 850px;height: 250px;"></div>
+            </Card>
+        </div>
         <div class="row" v-if="peoples.length!=0">
             <div class="col-md-6" v-for="people in peoples">
                 <div class="card mb-4">
@@ -52,6 +60,7 @@
         },
         data() {
             return {
+                values2: [new Date(), new Date()],
                 peoples: [],
                 dataAxis: [],
                 yMax: 500,
@@ -86,8 +95,8 @@
                         "width": 200,
                         "sortable": true
                     }, {
-                        "title": "提交时间",
-                        "key": "createAt",
+                        "title": "评论条数",
+                        "key": "noteCount",
                         "width": 300,
                         "sortable": true
                     }
@@ -149,6 +158,7 @@
                     }).catch(e => {
                     e.toString();
                 })
+                vm.$http.get
             },
             lineChart(id) {
                 for (var i = 1; i < 4000; i++) {

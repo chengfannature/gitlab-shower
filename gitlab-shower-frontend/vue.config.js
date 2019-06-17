@@ -16,7 +16,6 @@ module.exports = { // 模块导出
                 pathRewrite: {
                     '^': '/api',//重写,
                 },
-                ws: true // 代理webSocket，WebSocket是一种在单个TCP连接上进行全双工通信的协议。
                          // 全双工的系统可以用一般的双向车道形容。两个方向的车辆因使用不同的车道，因此不会互相影响。
             }
         }
