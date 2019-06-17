@@ -2,7 +2,9 @@ package org.chengfan.gitlab.shower.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.chengfan.gitlab.shower.entity.Note;
+import org.chengfan.gitlab.shower.entity.Record;
 import org.chengfan.gitlab.shower.repository.NoteRepository;
+import org.chengfan.gitlab.shower.repository.RecordRepository;
 import org.chengfan.gitlab.shower.service.NoteService;
 import org.gitlab.api.GitlabAPI;
 import org.gitlab.api.models.GitlabDiscussion;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
+import static org.chengfan.gitlab.shower.utils.Tools.isNewer;
+
 @Service
 @Slf4j
 public class NoteServiceImpl implements NoteService {
@@ -23,11 +27,14 @@ public class NoteServiceImpl implements NoteService {
     @Autowired
     NoteRepository noteRepository;
 
+    @Autowired
+    RecordRepository recordRepository;
+
     @Override
     public void saveNotes(int projectId) {
         long start = System.currentTimeMillis();
 
-        Note lastUpdateNote = noteRepository.findFirstByOrderByCreatedAt();
+        Record lastRecord = recordRepository.findFirstByOrderBySyncDateDesc();
         List<GitlabMergeRequest> mergeRequests = gitlabAPI.getMergeRequests(projectId);
         mergeRequests.forEach(mr -> {
             try {
@@ -39,7 +46,7 @@ public class NoteServiceImpl implements NoteService {
                     notes.stream()
                             .filter(n -> !n.getBody().toUpperCase().contains("OK"))
                             .filter(n -> !isSameUser(mr, n))
-                            .filter(n -> isNewerNote(n, lastUpdateNote))
+                            .filter(c -> isNewer(c.getCreatedAt(), lastRecord))
                             .map(this::buildNote)
                             .forEach(note -> noteRepository.save(note));
                 });
