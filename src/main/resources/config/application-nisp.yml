@@ -45,3 +45,7 @@ spring:
 
 
 debug: false
+logging:
+  file: ./logs/gitlab-shower.log
+  level:
+    root: info

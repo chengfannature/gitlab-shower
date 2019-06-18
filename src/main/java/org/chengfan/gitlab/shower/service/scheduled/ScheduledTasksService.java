@@ -1,5 +1,6 @@
 package org.chengfan.gitlab.shower.service.scheduled;
 
+import lombok.extern.slf4j.Slf4j;
 import org.chengfan.gitlab.shower.config.GitlabProperties;
 import org.chengfan.gitlab.shower.entity.Record;
 import org.chengfan.gitlab.shower.entity.User;
@@ -16,12 +17,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
-import static java.time.Instant.now;
-
+@Slf4j
 @Service
 public class ScheduledTasksService {
 
@@ -46,7 +45,7 @@ public class ScheduledTasksService {
     RecordRepository recordRepository;
 
 
-    @Scheduled(cron = "0 0 7 * * *")
+    @Scheduled(cron = "0 0 * * * *")
     public void reloadProjectData() {
         GitlabGroup group = null;
         try {
@@ -59,11 +58,14 @@ public class ScheduledTasksService {
         }
         List<String> configProjects = gitlabProperties.getProjects();
         List<GitlabProject> projects = group.getProjects();
+        long startTime = System.currentTimeMillis();
+        log.info("Sync data from {} start...", gitlabProperties.getGroup());
         projects.stream().filter(p -> configProjects.contains(p.getName())).forEach(p -> {
             commitService.saveCommits(p.getId());
             noteService.saveNotes(p.getId());
         });
         addSyncRecord();
+        log.info("Sync data ended, takes {}", System.currentTimeMillis() - startTime);
     }
 
     private void addSyncRecord() {
