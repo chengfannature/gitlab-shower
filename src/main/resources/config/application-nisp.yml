@@ -7,12 +7,19 @@ gitlab:
   - nisp-etl
   - nisp-ctl
   excludeUsers:
-    - tongxin
-    - sonar
-    - ghost
-    - root
-    - yanli
-
+  - tongxin
+  - sonar
+  - ghost
+  - root
+  - yanli
+  - 许魁
+  - xukui
+  - nisp
+  - zhouty
+  - pengyong
+  - rengd
+  - xieqiugen
+  - liliang
 spring:
   datasource:
     druid:
@@ -34,5 +41,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
 
 debug: false

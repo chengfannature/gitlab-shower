@@ -7,22 +7,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+/**
+ * @author chengfan
+ */
 @SpringBootApplication
 @EnableScheduling
 public class Application {
 
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-	@Bean
-	public MapperFacade orikaBeanMapper() {
-		return new DefaultMapperFactory.Builder().build().getMapperFacade();
-	}
-
-
-
+    @Bean
+    public MapperFacade orikaBeanMapper() {
+        return new DefaultMapperFactory.Builder().build().getMapperFacade();
+    }
 
 
 }

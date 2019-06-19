@@ -1,12 +1,15 @@
 package org.chengfan.gitlab.shower.service;
 
-import org.chengfan.gitlab.shower.dto.CommitStatisticDto;
-
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import org.chengfan.gitlab.shower.dto.CommitStatisticDto;
+import org.chengfan.gitlab.shower.entity.User;
 
 public interface CommitStatisticService {
 
-    List getALl();
+    List<CommitStatisticDto> getCommitStatistics(String userName);
 
-    List<CommitStatisticDto> getByUsername(String username);
+    List<CommitStatisticDto> getAllCommitStatics();
 }

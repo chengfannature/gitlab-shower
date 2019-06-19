@@ -4,7 +4,7 @@
             <Row>
                 <Col span="12">
                     <label>开始时间：</label>
-                    <DatePicker type="daterange" :options="options2" :value="values2" @on-change="timeChange"
+                    <DatePicker type="daterange" :options="options2" :value="dateValue" @on-change="timeChange"
                                 format="yyyy-MM-dd"
                                 placeholder="选择时间" style="width: 200px">
                     </DatePicker>
@@ -17,27 +17,40 @@
         <div class="form form-group">
             <Table :columns="columnDeveloper" :data="peoples" size="small" ref="table"></Table>
         </div>
-        <div class="form form-group">
-            <Card>
-                <div id="main" style="width: 850px;height: 250px;"></div>
-            </Card>
+        <div class="form form-group" v-if="commitStatics.length!=0">
+            <div class="card mb-4">
+                <Card>
+                    <p slot="title">
+                        <Icon type="ios-film-outline"></Icon>
+                        {{commitStatics.contributionDto.userName}}
+                    </p>
+                    <div>
+                        <a class="link-gray text-normal">{{commitStatics.contributionDto.commitCount}} commits </a>
+                        <a class="text-normal" style="color: green">{{commitStatics.contributionDto.additionSum}}++ </a>
+                        <a class="text-normal" style="color: red">{{commitStatics.contributionDto.deletionSum}}--</a>
+                    </div>
+                </Card>
+                <div class="card-body">
+                    <div id="main" style="width: 850px;height: 250px;"></div>
+                </div>
+            </div>
         </div>
-        <div class="row" v-if="peoples.length!=0">
-            <div class="col-md-6" v-for="people in peoples">
+        <div class="row" v-if="peoples2.length!=0">
+            <div class="col-md-6" v-for="people in peoples2">
                 <div class="card mb-4">
                     <Card>
                         <p slot="title">
                             <Icon type="ios-film-outline"></Icon>
-                            {{people.userName}}
+                            {{people.contributionDto.userName}}
                         </p>
                         <a slot="extra">
                             <Icon type="ios-loop-strong"></Icon>
                             {{people.style}}
                         </a>
                         <div>
-                            <a class="link-gray text-normal">{{people.commitCount}} commits </a>
-                            <a class="text-normal" style="color: green">{{people.additionSum}}++ </a>
-                            <a class="text-normal" style="color: red">{{people.deletionSum}}--</a>
+                            <a class="link-gray text-normal">{{people.contributionDto.commitCount}} commits </a>
+                            <a class="text-normal" style="color: green">{{people.contributionDto.additionSum}}++ </a>
+                            <a class="text-normal" style="color: red">{{people.contributionDto.deletionSum}}--</a>
                         </div>
                     </Card>
                     <div class="card-body">
@@ -60,15 +73,14 @@
         },
         data() {
             return {
-                values2: [new Date(), new Date()],
+                dateValue: [new Date(), new Date()],
                 peoples: [],
+                peoples2: [],
+                commitStatics: [],
                 dataAxis: [],
                 yMax: 500,
                 dataShadow: [],
-                base: +new Date(2010, 9, 3),
                 oneDay: 24 * 3600 * 1000,
-                date: [],
-                data: [Math.random() * 300],
                 startTime: '',
                 endTime: '',
                 columnDeveloper: [
@@ -129,6 +141,9 @@
         ready: function () {
             this.getPeoples();
         },
+        beforeCreated() {
+            this.getPeoples();
+        },
         created() {
             this.getPeoples();
         },
@@ -152,20 +167,44 @@
                 vm.$http.get("/contributions/history?orderBy=created_at").then(
                     function (contributions) {
                         this.peoples = contributions.body;
-                        for (var i = 0; i <= this.peoples.length; i++) {
-                            this.peoples[i].style = '#' + i;
+                    }).catch(e => {
+                    e.toString();
+                });
+                vm.$http.get("/commitStatistic/all").then(
+                    function (contributions) {
+                        this.peoples2 = contributions.body;
+                        for (let i = 0; i <= this.peoples2.length; i++) {
+                            this.peoples2[i].style = '#' + i;
                         }
                     }).catch(e => {
                     e.toString();
-                })
-                vm.$http.get
+                });
+                vm.$http.get("/commitStatistic").then(
+                    function (contributions) {
+                        this.commitStatics = contributions.body;
+                    }).catch(e => {
+                    e.toString();
+                });
             },
-            lineChart(id) {
-                for (var i = 1; i < 4000; i++) {
-                    let now = new Date(this.base += this.oneDay);
-                    let date = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-');
-                    this.date.push(date);
-                    this.data.push(Math.round((Math.random() - 0.5) * 20 + this.data[i - 1]));
+            lineChart(id, commitStatics) {
+                let date = [];
+                let data = [];
+                let base = +new Date(2019, 3, 2);
+                for (let i = 1; i < 1000; i++) {
+                    let now = new Date(base += this.oneDay);
+                    let tmpData = 0;
+                    let tmpDate = [now.getFullYear(), now.getMonth() < 10 ? "0" + now.getMonth() : now.getMonth(),
+                        now.getDate() > 9 ? now.getDate() : "0" + now.getDate()].join('-');
+                    if (commitStatics != null) {
+                        for (let j = 0; j < commitStatics.length; j++) {
+                            if (tmpDate === commitStatics[j].createAt) {
+                                tmpData = commitStatics[j].commitCount;
+                                break;
+                            }
+                        }
+                    }
+                    date.push(tmpDate);
+                    data.push(tmpData);
                 }
                 this.charts = echarts.init(document.getElementById(id));
                 this.charts.setOption({
@@ -191,7 +230,7 @@
                     xAxis: {
                         type: 'category',
                         boundaryGap: false,
-                        data: this.date
+                        data: date
                     },
                     yAxis: {
                         type: 'value',
@@ -202,8 +241,8 @@
                         start: 0,
                         end: 20
                     }, {
-                        start: 1000,
-                        end: 1010,
+                        start: 0,
+                        end: 10,
                         handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
                         handleSize: '80%',
                         handleStyle: {
@@ -233,20 +272,18 @@
                                     color: 'rgba(52, 185, 86, 0.49)'
                                 }])
                             },
-                            data: this.data
+                            data: data
                         }
                     ]
                 })
             }
         },
-        mounted() {
-            this.$nextTick(function () {
-                this.lineChart('main');
-            })
-        },
         updated() {
-            for (var i = 0; i <= this.peoples.length; i++) {
-                this.lineChart('#' + i);
+            if (this.commitStatics !== []) {
+                this.lineChart('main', this.commitStatics.commitStatisticDto);
+            }
+            for (var i = 0; i < this.peoples2.length; i++) {
+                this.lineChart('#' + i, this.peoples2[i].commitStatisticDto);
             }
         }
 

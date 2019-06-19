@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author chengfan
@@ -49,10 +49,16 @@ public class ContributorServiceImpl implements ContributorService {
 
     private List<ContributionDto> buildContributionList(List<CommitDto> commitDtoList,
                                                         Map<String, Long> noteMap) {
+        checkNotNull(commitDtoList, "Commit list should not be null");
+        checkNotNull(noteMap, "note map should note be null");
         List<ContributionDto> contributionDtos = new LinkedList<>();
         for (CommitDto commitDto : commitDtoList) {
+            Long noteNum = noteMap.get(commitDto.getUserName());
+            if (noteNum == null) {
+                noteNum = 0L;
+            }
             ContributionDto contributionDto = new
-                    ContributionDto(commitDto, noteMap.get(commitDto.getUserName()));
+                    ContributionDto(commitDto, noteNum);
             contributionDtos.add(contributionDto);
         }
         return contributionDtos;
