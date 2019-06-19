@@ -20,10 +20,6 @@
         <div class="form form-group" v-if="commitStatics.length!=0">
             <div class="card mb-4">
                 <Card>
-                    <p slot="title">
-                        <Icon type="ios-film-outline"></Icon>
-                        {{commitStatics.contributionDto.userName}}
-                    </p>
                     <div>
                         <a class="link-gray text-normal">{{commitStatics.contributionDto.commitCount}} commits </a>
                         <a class="text-normal" style="color: green">{{commitStatics.contributionDto.additionSum}}++ </a>
