@@ -1,5 +1,6 @@
 package org.chengfan.gitlab.shower.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ public class CommitStatisticDto {
 	/**
 	 * 提交的时间,精确到某天
 	 */
+	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
 	private Date createAt;
 	/**
 	 * 当天总新增代码.
@@ -28,4 +30,5 @@ public class CommitStatisticDto {
 	 * 当天的总提交数;
 	 */
 	private long commitCount;
+
 }
