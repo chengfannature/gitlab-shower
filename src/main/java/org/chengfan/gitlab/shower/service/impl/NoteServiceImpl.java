@@ -46,6 +46,7 @@ public class NoteServiceImpl implements NoteService {
                     notes.stream()
                             .filter(n -> !n.getBody().toUpperCase().contains("OK"))
                             .filter(n -> !isSameUser(mr, n))
+                            .filter(GitlabNote::isResolved)
                             .filter(c -> isNewer(c.getCreatedAt(), lastRecord))
                             .map(this::buildNote)
                             .forEach(note -> noteRepository.save(note));

@@ -23,7 +23,7 @@ import static org.chengfan.gitlab.shower.utils.Tools.isNewer;
 @Slf4j
 public class CommitServiceImpl implements CommitService {
     public static final int MAX_CODE_LINE_PER_COMMIT = 5000;
-    public static final String DEFAULT_BRANCH = "develop";
+    public static final String DEFAULT_BRANCH = "master";
 
     @Autowired
     CommitRepository commitRepository;
@@ -41,7 +41,7 @@ public class CommitServiceImpl implements CommitService {
     public void saveCommits(int projectId) {
         List<GitlabCommitWithStats> commits = null;
         try {
-            commits = gitlabAPI.getAllCommitsWithStats(projectId, DEFAULT_BRANCH);
+            commits = gitlabAPI.getAllCommitsWithStats(projectId, gitlabProperties.getBranch());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,6 +57,7 @@ public class CommitServiceImpl implements CommitService {
                 .filter(c -> c.getGitlabCommitStats().getTotal() < MAX_CODE_LINE_PER_COMMIT)
                 .filter(c -> !gitlabProperties.getExcludeUsers().contains(c.getAuthorName()))
                 .filter(c -> isNewer(c.getCreatedAt(), lastRecord))
+                .filter(c -> !c.getTitle().contains("Merge branch"))
                 .forEach(commitWithStats -> {
                     Commit commit = buildCommit(commitWithStats, projectId);
                     commitRepository.save(commit);
@@ -83,12 +84,5 @@ public class CommitServiceImpl implements CommitService {
         commit.setAdditions(stats.getAdditions());
         commit.setDeletions(stats.getDeletions());
         return commit;
-    }
-
-    private boolean isNewerCommit(GitlabCommitWithStats newCommit, Commit lastUpdatedCommit) {
-        if (lastUpdatedCommit == null || lastUpdatedCommit.getCreatedAt() == null) {
-            return true;
-        }
-        return newCommit.getCreatedAt().after(lastUpdatedCommit.getCreatedAt());
     }
 }

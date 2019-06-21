@@ -16,14 +16,17 @@
 *.iml
 *.ipr
 *.tar.gz
+*.log
+*.gz
+*.yml
 
 ### NetBeans ###
 /nbproject/private/
 /build/
 /nbbuild/
-/dist/
+dist
 /nbdist/
 /.nb-gradle/
 /node_modules/
-/**/dist
+
 

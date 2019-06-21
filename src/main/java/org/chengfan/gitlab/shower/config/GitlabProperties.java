@@ -18,5 +18,5 @@ public class GitlabProperties {
     private String group;
     private List<String> excludeUsers;
     private List<String> projects;
-
+    private String branch;
 }
