@@ -15,6 +15,7 @@
 *.iws
 *.iml
 *.ipr
+*.tar.gz
 
 ### NetBeans ###
 /nbproject/private/
@@ -24,4 +25,5 @@
 /nbdist/
 /.nb-gradle/
 /node_modules/
+/**/dist
 
