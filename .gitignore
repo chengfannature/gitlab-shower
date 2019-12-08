@@ -19,6 +19,7 @@
 *.log
 *.gz
 *.yml
+*.DS_Store
 
 ### NetBeans ###
 /nbproject/private/
