@@ -73,7 +73,7 @@ public class ContributorControllerTest {
 	private ContributionDto buildContributionDto() {
 		CommitDto.CommitDtoBuilder builder = CommitDto.builder();
 		builder.userName("chengfan");
-		builder.email("chengfan@greenet.net.cn");
+		builder.email("chengfan@huawei.net.cn");
 		builder.additionSum(1000);
 		builder.deletionSum(10);
 		builder.commitCount(20);

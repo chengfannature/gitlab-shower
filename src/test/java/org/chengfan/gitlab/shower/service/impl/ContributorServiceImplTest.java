@@ -29,8 +29,8 @@ import static org.mockito.ArgumentMatchers.any;
 @SpringBootTest
 public class ContributorServiceImplTest {
 
-	private CommitDto commitDto1 = new CommitDto("chengfan", "chengfan@greenet.net.cn", 20, 500, 100);
-	private CommitDto commitDto2 = new CommitDto("pengxg", "pengxg@greenet.net.cn", 20, 500, 100);
+	private CommitDto commitDto1 = new CommitDto("chengfan", "chengfan@huawei.net.cn", 20, 500, 100);
+	private CommitDto commitDto2 = new CommitDto("pengxg", "pengxg@huawei.net.cn", 20, 500, 100);
 
 	private NoteDto noteDto1 = new NoteDto("chengfan", 20);
 	private NoteDto noteDto2 = new NoteDto("pengxg", 10);

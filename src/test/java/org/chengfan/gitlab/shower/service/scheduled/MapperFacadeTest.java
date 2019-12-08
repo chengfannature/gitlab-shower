@@ -28,7 +28,7 @@ public class MapperFacadeTest {
         GitlabCommitWithStats commitWithStats = new GitlabCommitWithStats();
         commitWithStats.setId("aadb");
         commitWithStats.setAuthorName("chengfan");
-        commitWithStats.setAuthorEmail("chengfan@greenet.com");
+        commitWithStats.setAuthorEmail("chengfan@huawei.com");
         GitlabCommitStats stats = new GitlabCommitStats();
         stats.setAdditions(222);
         stats.setDeletions(222);
